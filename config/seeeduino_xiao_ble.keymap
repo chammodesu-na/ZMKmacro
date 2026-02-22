@@ -3,6 +3,16 @@
 #include <dt-bindings/zmk/keys.h>
 
 / {
+    // 블루투스 프로파일 이동을 위한 엔코더 동작 추가
+    behaviors {
+        rot_bt: sensor_rotate_bt {
+            compatible = "zmk,behavior-sensor-rotate";
+            #sensor-binding-cells = <0>;
+            // 시계방향: 다음 기기(BT_NXT), 반시계방향: 이전 기기(BT_PRV)
+            bindings = <&bt BT_NXT>, <&bt BT_PRV>;
+        };
+    };
+
     sensors {
         compatible = "zmk,keymap-sensors";
         sensors = <&left_encoder>;
@@ -14,18 +24,21 @@
 
         default_layer {
             // 버튼 4개 (엔코더푸시, 버튼1, 버튼2, 버튼3)
-
             bindings = <
 &kp C_POWER  &kp RIGHT  &kp LEFT  &mo 1
             >;
 
-            sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN>;
+            // 레이어 0: 시계방향 밝기 증가, 반시계방향 밝기 감소
+            sensor-bindings = <&inc_dec_kp C_BRI_UP C_BRI_DN>;
         };
 
         layer_1 {
             bindings = <
 &bt BT_CLR  &trans  &trans  &trans
             >;
+            
+            // 레이어 1: 위에 만든 블루투스 이동 동작 적용
+            sensor-bindings = <&rot_bt>;
         };
     };
 };
