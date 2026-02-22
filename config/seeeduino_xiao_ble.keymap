@@ -29,7 +29,7 @@
             >;
 
             // 레이어 0: 시계방향 밝기 증가, 반시계방향 밝기 감소
-            sensor-bindings = <&inc_dec_kp &kp C_VOL_UP &kp C_VOL_DN>;
+            sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN>;
         };
 
         layer_1 {
