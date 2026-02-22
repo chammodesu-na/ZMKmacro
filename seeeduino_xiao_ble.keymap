@@ -1,0 +1,18 @@
+#include <behaviors.dtsi>
+#include <dt-bindings/zmk/keys.h>
+
+/ {
+    keymap {
+        compatible = "zmk,keymap";
+
+        default_layer {
+            // D2, D3, D4 물리 버튼
+            bindings = <
+                &kp A  &kp B  &kp C
+            >;
+            
+            // 로터리 엔코더 (ZMK 공식 볼륨 코드 적용)
+            sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN>;
+        };
+    };
+};
