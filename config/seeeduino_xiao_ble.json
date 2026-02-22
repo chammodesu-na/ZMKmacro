@@ -1,13 +1,16 @@
 {
+  "id": "seeeduino_xiao_ble",
+  "name": "seeeduino_xiao_ble",
   "keyboard_name": "Sexy keys",
   "layouts": {
     "LAYOUT": {
       "layout": [
-        { "x": 0, "y": 0, "w": 1, "h": 1 },
+        { "x":   0, "y": 0, "w": 1, "h": 1 },
         { "x": 1.5, "y": 0, "w": 1, "h": 1 },
-        { "x": 3, "y": 0, "w": 1, "h": 1 },
+        { "x":   3, "y": 0, "w": 1, "h": 1 },
         { "x": 4.5, "y": 0, "w": 1, "h": 1 }
       ]
     }
-  }
+  },
+  "sensors": []
 }
