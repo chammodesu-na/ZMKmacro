@@ -1,4 +1,5 @@
 #include <dt-bindings/zmk/matrix_transform.h>
+#include <dt-bindings/gpio/gpio.h> /* 이 줄이 없으면 GPIO_ACTIVE_LOW를 못 읽고 에러가 납니다! */
 
 / {
     chosen {
@@ -9,10 +10,11 @@
     kscan0: kscan_0 {
         compatible = "zmk,kscan-gpio-direct";
         label = "KSCAN";
+        /* XIAO BLE의 D2, D3, D4 물리 핀 번호 적용 */
         input-gpios
-            = <&xiao_d 2 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>
-            , <&xiao_d 3 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>
-            , <&xiao_d 4 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>
+            = <&gpio0 28 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)> // D2 핀
+            , <&gpio0 29 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)> // D3 핀
+            , <&gpio0 4  (GPIO_ACTIVE_LOW | GPIO_PULL_UP)> // D4 핀
             ;
     };
 
@@ -28,8 +30,9 @@
     left_encoder: encoder_left {
         compatible = "alps,ec11";
         label = "LEFT_ENCODER";
-        a-gpios = <&xiao_d 0 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;
-        b-gpios = <&xiao_d 1 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;
+        /* XIAO BLE의 D0, D1 물리 핀 번호 적용 */
+        a-gpios = <&gpio0 2 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>; // D0 핀
+        b-gpios = <&gpio0 3 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>; // D1 핀
         steps = <80>;
         status = "okay";
     };
