@@ -1,16 +1,40 @@
 / {
-    // 로터리 엔코더 핀 설정 (D0, D1)
-    encoder: encoder {
+    chosen {
+        zmk,kscan = &kscan0;
+        zmk,matrix_transform = &default_transform;
+    };
+
+    // 1. 버튼 3개에 대한 물리적 핀 연결 (D2, D3, D4)
+    kscan0: kscan {
+        compatible = "zmk,kscan-gpio-direct";
+        label = "KSCAN";
+        input-gpios =
+            <&xiao_d 2 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>, // 스위치 1 (D2)
+            <&xiao_d 3 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>, // 스위치 2 (D3)
+            <&xiao_d 4 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>; // 스위치 3 (D4)
+    };
+
+    // 2. 에디터가 화면에 버튼을 그릴 수 있게 위치 정의
+    default_transform: matrix_transform {
+        compatible = "zmk,matrix-transform";
+        columns = <3>;
+        rows = <1>;
+        map = <
+            RC(0,0) RC(0,1) RC(0,2)
+        >;
+    };
+
+    // 3. 로터리 엔코더 활성화 (D0, D1)
+    left_encoder: encoder_left {
         compatible = "alps,ec11";
-        label = "ENCODER";
+        label = "LEFT_ENCODER";
         a-gpios = <&xiao_d 0 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;
         b-gpios = <&xiao_d 1 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;
         resolution = <4>;
     };
 
-    // 스위치 핀 설정 (D2, D3, D4)
     sensors {
         compatible = "zmk,keymap-sensors";
-        sensors = <&encoder>;
+        sensors = <&left_encoder>;
     };
 };
