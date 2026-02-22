@@ -27,18 +27,22 @@
         >;
     };
 
-    left_encoder: encoder_left {
+left_encoder: encoder_left {
         compatible = "alps,ec11";
         label = "LEFT_ENCODER";
-        a-gpios = <&gpio0 2 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>; // D0
-        b-gpios = <&gpio0 3 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>; // D1
-        resolution = <4>;  // <--- 이 부분을 변경! (steps 삭제)
+        a-gpios = <&gpio0 2 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;
+        b-gpios = <&gpio0 3 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;
+        
+        // 딸깍(Detent) 한 칸당 신호가 4개니까, 
+        // 20칸(한 바퀴) * 4 = 80으로 스펙을 정의합니다.
+        steps = <80>; 
+        
         status = "okay";
     };
 
     sensors: sensors {
         compatible = "zmk,keymap-sensors";
         sensors = <&left_encoder>;
-        triggers-per-rotation = <10>;
+        triggers-per-rotation = <20>;
     };
 };
