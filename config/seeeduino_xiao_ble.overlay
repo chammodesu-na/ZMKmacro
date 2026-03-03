@@ -10,6 +10,7 @@
     kscan0: kscan_0 {
         compatible = "zmk,kscan-gpio-direct";
         label = "KSCAN";
+        wakeup-source;
         input-gpios
             = <&gpio0 28 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)> // 엔코더 푸시 (D2)
             , <&gpio0 29 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)> // 버튼 1 (D3)
